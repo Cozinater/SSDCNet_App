@@ -27,6 +27,7 @@ def test_phase(net, testloader, log_save_path=None):
             print(data)
             inputs = data['image']
             inputs = inputs.type(torch.float32)
+            inputs = inputs.cuda()
             print(inputs.size())
             # inputs = inputs
             # process with SSDCNet

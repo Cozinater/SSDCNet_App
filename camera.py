@@ -64,13 +64,12 @@ class VideoCamera(object):
         self.net = SSDCNet_classify(class_num, label_indice, div_times=2,
                                     frontend_name='VGG16', block_num=5,
                                     IF_pre_bn=False, IF_freeze_bn=False, load_weights=True,
-                                    psize=64, pstride=64, parse_method='maxp')
+                                    psize=64, pstride=64, parse_method='maxp').cuda()
 
         mod_path = 'best_epoch.pth'
         mod_path = os.path.join('model', mod_path)
         if os.path.exists(mod_path):
-            all_state_dict = torch.load(
-                mod_path, map_location=torch.device('cpu'))
+            all_state_dict = torch.load(mod_path)
             self.net.load_state_dict(all_state_dict['net_state_dict'])
             tmp_epoch_num = all_state_dict['tmp_epoch_num']
             log_save_path = os.path.join(save_folder, 'log-epoch-min[%d]-%s.txt'
