@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>Crowd Counting App</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="{{ url_for('static',filename='css/style.css') }}"
+    />
+    <script
+    src="https://code.jquery.com/jquery-3.5.1.js"
+    integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc="
+    crossorigin="anonymous"
+  ></script>
+  </head>
+  <body>
+    <div class="top">
+      <h1>Crowd Counting Application</h1>
+      <hr />
+      <div class="webcam_preview">
+        <img src="" class="display_webcam display-none" alt="Webcam is Off..." height=360 width=640>
+        <span class="webcam-preview__default-text">Webcam is off...</span>
+        <div class="loader display-none"></div>
+      </div>
+      <br>
+      <form>
+      <input type="button" class="open_webcam" value="Open WebCam">
+      <input type="button" class="close_webcam" value="Close WebCam">
+      </form>
+      <form action="{{ url_for('predict')}}" method="post" enctype="multipart/form-data">
+        <input type="file" name="input-file" class="input-file" accept="image/*"/> <br> <br>
+        <label for="threshold">Threshold:</label>
+        <input type="text" class="threshold" name="threshold">
+
+        <!--<div class="image-preview">
+          <img class="image-preview__image" src={{input_image}} alt="Image Preview" />
+          <span class="image-preview__default-text">Image Preview</span>
+        </div>-->
+
+        <button type="submit" name="predict" class="button display-none">
+          Run Model!
+        </button>
+      </form>
+      <div class="display-none inline">
+        <h5 class="running-model">Running model...</h5>
+        <div class="loader"></div>
+      </div>
+
+      
+      <!--<p class="result display-none">-->
+      {{ prediction_text }}
+      <!--</p> -->
+    </div>
+      <script type="text/javascript" src="/static/js/index.js?u={{ last_updated }}"></script>
+     
+    </div>
+  </body>
+</html>
+
+<!--
+<script
+        type="text/javascript"
+        src="{{ url_for('static', filename='js/index.js') }}"
+      ></script> 
+      -->
