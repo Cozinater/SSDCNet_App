@@ -68,12 +68,15 @@ class VideoCamera(object):
 
         mod_path = 'best_epoch.pth'
         mod_path = os.path.join('model', mod_path)
+        print(mod_path)
         if os.path.exists(mod_path):
             all_state_dict = torch.load(mod_path)
+            print(mod_path)
             self.net.load_state_dict(all_state_dict['net_state_dict'])
             tmp_epoch_num = all_state_dict['tmp_epoch_num']
             log_save_path = os.path.join(save_folder, 'log-epoch-min[%d]-%s.txt'
                                          % (tmp_epoch_num+1, 'maxp'))
+        print("end of function")
 
     def __del__(self):
         self.stream.stop()
@@ -135,8 +138,8 @@ class VideoCamera(object):
         img = cv2.cvtColor(image, cv2.COLOR_BGR2RGB)
         img = Image.fromarray(img).convert('RGB')
         print(type(img))
-        img = img.resize((640, 360))
-        # img.show()
+        img = img.resize((640, 460))
+        #img.show()
         img = transforms.ToTensor()(img)
         img = self.get_pad(img, DIV=64)
         img = img - torch.Tensor(self.rgb).view(3, 1, 1)
@@ -144,8 +147,8 @@ class VideoCamera(object):
         # print(input_file.filename)
 
         inputs = img.type(torch.float32)
-
         inputs = inputs.unsqueeze(0)
+        inputs = inputs.cuda()
         print(inputs.size())
         features = self.net(inputs)
         div_res = self.net.resample(features)
