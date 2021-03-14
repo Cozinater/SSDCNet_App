@@ -26,10 +26,13 @@ def root():
     return render_template('index.html')
 
 
-@app.route('/home')
-def home():
-    return render_template('index.html')
+@app.route('/webcam')
+def webcam():
+    return render_template('webcam.html')
 
+@app.route('/video')
+def video():
+    return render_template('video.html')
 
 def gen(camera):
     while True:

@@ -1,7 +1,36 @@
+@import "compass/css3";
+
+@import url(https://fonts.googleapis.com/css?family=Merriweather);
+$red: #e74c3c;
+
+*, 
+*:before, 
+*:after {
+   @include box-sizing(border-box); 
+}
+
+a:link {
+  text-decoration: none;
+}
+
+.title {
+   text-align: center;
+   color: #606060;
+   text-shadow: 1px 1px white;
+}
+
+body {
+  background-color: #f1f1f1;
+  font-family: 'Merriweather', sans-serif;
+  padding: 1em;
+}
+
 .webcam_preview {
   width: 640px;
-  min-height: 100px;
-  border: 2px solid #dddddd;
+  min-height: 200px;
+  border-radius:5px;
+  border: 2px solid rgb(105 105 105 / 38%);
+  margin: auto;
   margin-top: 15px;
 
   /* Default text */
@@ -9,8 +38,96 @@
   align-items: center;
   justify-content: center;
   font-weight: bold;
-  color: #cccccc;
+  color: rgb(110 110 110 / 68%);
 }
+
+p {
+  margin: 20px auto;
+}
+
+li {
+  margin:10px;
+}
+
+input {
+     border:0; outline:0;
+     padding: 1em;
+     border-radius: 8px;
+     display: block;
+     width: 100%;
+     margin-top: 1em;
+     font-family: 'Merriweather', sans-serif;
+     box-shadow: 1px 1px rgba(0,0,0, 0.1);
+     resize: none;
+    }
+
+input:focus {
+  box-shadow:0 0px 2px #e74c3c;
+}
+
+form {
+   max-width: 600px;
+   text-align: center;
+   margin: 20px auto;
+
+  /*.open_webcam {
+     color: white; 
+     background: $red;
+     cursor: pointer;
+    
+    &:hover {
+       @include box-shadow(0 1px 1px 1px rgba(#aaa, 0.6)); 
+    }
+  }*/
+}
+
+.half {
+  float: left;
+  width: 48%;
+  margin-bottom: 1em;
+}
+
+.right { 
+  width: 50%; 
+}
+
+.left { 
+  margin-right: 2%; 
+}
+
+@media (max-width: 480px) {
+  .half {
+     width: 100%; 
+     float: none;
+     margin-bottom: 0; 
+  }
+}
+
+/* Clearfix */
+.cf:before,
+.cf:after {
+    content: " "; /* 1 */
+    display: table; /* 2 */
+}
+
+.cf:after {
+    clear: both;
+}
+
+.threshold {
+  width:40%;
+  margin:auto;
+}
+
+#button {
+  background-color: #e74c3c;
+  color: white; 
+  cursor: pointer;
+}
+
+#button:hover {
+    box-shadow:0 1px 1px 1px rgb(105 105 105 / 60%); 
+    }
 
 .button {
   margin: 10px 0px 10px 0px;

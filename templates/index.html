@@ -16,46 +16,33 @@
   ></script>
   </head>
   <body>
-    <div class="top">
-      <h1>Crowd Counting Application</h1>
-      <hr />
-      <div class="webcam_preview">
-        <img src="" class="display_webcam display-none" alt="Webcam is Off..." height=360 width=640>
-        <span class="webcam-preview__default-text">Webcam is off...</span>
-        <div class="loader display-none"></div>
-      </div>
+    <h1 class="title">Crowd Counting Application</h1>
+    <div style="margin: 50px 50px 50px 50px;">
+    <p>
+      Welcome to the Crowd Counting Application! <br><br>
+      This application is able to count the number of people in a video at any given time! There are two main features that you can choose from: 
+      <ol>
+        <li>Upload a video for live crowd counting</li>
+        <li>Open a webcam for live crowd counting</li>
+      </ol>
       <br>
-      <form>
-      <input type="button" class="open_webcam" value="Open WebCam">
-      <input type="button" class="close_webcam" value="Close WebCam">
-      </form>
-      <form action="{{ url_for('predict')}}" method="post" enctype="multipart/form-data">
-        <input type="file" name="input-file" class="input-file" accept="image/*"/> <br> <br>
-        <label for="threshold">Threshold:</label>
-        <input type="text" class="threshold" name="threshold">
+      Please choose one of these two features below!
+    </p>
+  </div>
 
-        <!--<div class="image-preview">
-          <img class="image-preview__image" src={{input_image}} alt="Image Preview" />
-          <span class="image-preview__default-text">Image Preview</span>
-        </div>-->
-
-        <button type="submit" name="predict" class="button display-none">
-          Run Model!
-        </button>
-      </form>
-      <div class="display-none inline">
-        <h5 class="running-model">Running model...</h5>
-        <div class="loader"></div>
+    <form class="cf">
+      <div class="cf half left">
+        <a href="/video">
+          <input type="button" id="button" value="Upload a video">
+        </a>     
       </div>
+      <div class="cf half right">
+        <a href="/webcam">
+          <input type="button" id="button" value="Use Webcam">
+        </a>
+      </div>
+    </form>
 
-      
-      <!--<p class="result display-none">-->
-      {{ prediction_text }}
-      <!--</p> -->
-    </div>
-      <script type="text/javascript" src="/static/js/index.js?u={{ last_updated }}"></script>
-     
-    </div>
   </body>
 </html>
 
