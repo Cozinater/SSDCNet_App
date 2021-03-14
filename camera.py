@@ -1,6 +1,7 @@
 import cv2
 import pickle
 from imutils.video import WebcamVideoStream
+from imutils.video import FileVideoStream
 
 import torch.nn as nn
 import torch
@@ -36,12 +37,15 @@ warnings.filterwarnings("ignore")
 
 
 class VideoCamera(object):
-    def __init__(self):
+    def __init__(self, medium):
         # Using OpenCV to capture from device 0. If you have trouble capturing
         # from a webcam, comment the line below out and use a video file
         # instead.
 
-        self.stream = WebcamVideoStream(src=0).start()
+        if medium == "video":
+            self.stream = FileVideoStream("videos/cctv.mp4").start()
+        elif medium == "webcam":
+            self.stream = WebcamVideoStream(src=0).start()
 
         save_folder = 'model'
         root_dir = r'data'
@@ -81,37 +85,6 @@ class VideoCamera(object):
     def __del__(self):
         self.stream.stop()
 
-    def predict(self, frame, knn_clf, distance_threshold=0.4):
-        # Find face locations
-        X_face_locations = face_recognition.face_locations(frame)
-        # print("X_face_locations",X_face_locations[0])
-        # X_face_locations[0][0]: X_face_locations[0][1], X_face_locations[0][2]: X_face_locations[0][3]
-        # try:
-        #     print("here")
-        #     cv2.imshow("fdgd",frame[57:304,242:118])
-        #     cv2.waitKey(1)
-        # except:
-        #     pass
-        # If no faces are found in the image, return an empty result.
-        if len(X_face_locations) == 0:
-            return []
-
-        # Find encodings for faces in the test iamge
-        faces_encodings = face_recognition.face_encodings(
-            frame, known_face_locations=X_face_locations)
-
-        # Use the KNN model to find the best matches for the test face
-        closest_distances = knn_clf.kneighbors(faces_encodings, n_neighbors=1)
-        are_matches = [closest_distances[0][i][0] <=
-                       distance_threshold for i in range(len(X_face_locations))]
-        for i in range(len(X_face_locations)):
-            print("closest_distances")
-            print(closest_distances[0][i][0])
-
-        # Predict classes and remove classifications that aren't within the threshold
-        return [(pred, loc) if rec else ("unknown", loc) for pred, loc, rec in
-                zip(knn_clf.predict(faces_encodings), X_face_locations, are_matches)]
-
     def get_pad(self, inputs, DIV=64):
         h, w = inputs.size()[-2:]
         ph, pw = (DIV-h % DIV), (DIV-w % DIV)
@@ -138,7 +111,7 @@ class VideoCamera(object):
         img = cv2.cvtColor(image, cv2.COLOR_BGR2RGB)
         img = Image.fromarray(img).convert('RGB')
         print(type(img))
-        img = img.resize((640, 460))
+        #img = img.resize((640, 460))
         #img.show()
         img = transforms.ToTensor()(img)
         img = self.get_pad(img, DIV=64)

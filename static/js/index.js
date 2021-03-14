@@ -10,6 +10,8 @@ const openWebcam = $(".open_webcam");
 const closeWebcam = $(".close_webcam");
 const displayWebcam = $(".display_webcam");
 const webcamDefaultText = $(".webcam-preview__default-text");
+const openVideo = $(".open_video");
+const closeVideo = $(".close_video")
 
 closeWebcam.click(function() {
     displayWebcam.addClass("display-none");
@@ -18,8 +20,26 @@ closeWebcam.click(function() {
     webcamDefaultText.removeClass("display-none")
 });
 
-openWebcam.on("click", function() {
+closeVideo.click(function() {
+    displayWebcam.addClass("display-none");
+    webcamDefaultText.text("Video is off...");
+    displayWebcam.attr("src", "");
+    webcamDefaultText.removeClass("display-none")
+});
+
+openVideo.on("click", function() {
     displayWebcam.attr("src", "/video_feed");
+    webcamDefaultText.text("Opening Video...");
+    setTimeout(function () {
+        webcamDefaultText.text("Video is off...");
+        webcamDefaultText.addClass("display-none")
+        displayWebcam.removeClass("display-none");
+    }, 4000);
+
+});
+
+openWebcam.on("click", function() {
+    displayWebcam.attr("src", "/webcam_feed");
     webcamDefaultText.text("Opening Webcam...");
     setTimeout(function () {
         webcamDefaultText.text("Webcam is off...");

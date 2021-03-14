@@ -44,10 +44,13 @@ def gen(camera):
         # yield ('--frame\r\n'
         #        'Content-Type: text/plain\r\n\r\n' + "<h2>love</h2>" + '\r\n\r\n')
 
-
 @app.route('/video_feed')
 def video_feed():
-    return Response(gen(VideoCamera()), mimetype='multipart/x-mixed-replace; boundary=frame')
+    return Response(gen(VideoCamera("video")), mimetype='multipart/x-mixed-replace; boundary=frame')
+
+@app.route('/webcam_feed')
+def webcam_feed():
+    return Response(gen(VideoCamera("webcam")), mimetype='multipart/x-mixed-replace; boundary=frame')
 
 
 @app.route('/predict', methods=["POST"])
