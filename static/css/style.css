@@ -116,8 +116,22 @@ form {
 
 .threshold {
   width:40%;
-  margin:auto;
+  margin-left: 30%;
+  margin-bottom: 2%;
 }
+
+.threshold-video {
+  width:40%;
+  margin: auto;
+}
+
+
+.input-file {
+    width: 40%;
+    margin: auto;
+    height: 20px;
+}
+
 
 #button {
   background-color: #e74c3c;
