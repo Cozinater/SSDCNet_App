@@ -43,7 +43,7 @@ class VideoCamera(object):
         # instead.
 
         if medium == "video":
-            self.stream = FileVideoStream("videos/cctv.mp4").start()
+            self.stream = FileVideoStream("videos/Assult_attack.mp4").start()
         elif medium == "webcam":
             self.stream = WebcamVideoStream(src=0).start()
 
@@ -111,7 +111,7 @@ class VideoCamera(object):
         img = cv2.cvtColor(image, cv2.COLOR_BGR2RGB)
         img = Image.fromarray(img).convert('RGB')
         print(type(img))
-        #img = img.resize((640, 460))
+        img = img.resize((320, 240))
         #img.show()
         img = transforms.ToTensor()(img)
         img = self.get_pad(img, DIV=64)
